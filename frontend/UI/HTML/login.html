@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Circular Recycling Platform - Authentication</title>
+  
+  <!-- Link to the separated CSS file -->
+  <link rel="stylesheet" href="/UI/CSS/login.css">
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="brand-header">
+      <svg class="brand-icon" viewBox="0 0 24 24">
+        <path d="M12 2L9.5 6.5H14.5L12 2ZM4.5 10.5L2 15H7L4.5 10.5ZM19.5 10.5L17 15H22L19.5 10.5ZM10.2 8.5L7.7 13H11.2L9.7 10.3L10.2 8.5ZM13.8 8.5L14.3 10.3L12.8 13H16.3L13.8 8.5ZM8.5 16.5L6 21H18L15.5 16.5H8.5Z"/>
+      </svg>
+      <h1 class="brand-title">Smart Circular Recycling</h1>
+      <p class="brand-subtitle">Environmental Sustainability & Recycling Platform</p>
+    </div>
+
+    <div class="form-content">
+      
+      <!-- ================= LOGIN FORM ================= -->
+      <form id="loginForm" class="auth-form active" action="/login" method="POST">
+        <h2 class="form-title">Welcome Back!</h2>
+        
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" name="email" placeholder="student@university.edu" required />
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" placeholder="••••••••" required />
+        </div>
+
+        <p class="toggle-text">
+          Not registered yet? 
+          <span class="toggle-link" onclick="switchForm('signup')">Sign Up</span>
+        </p>
+
+        <button type="submit" class="btn-submit" style="margin-top: 20px;">Log In</button>
+      </form>
+
+      <!-- ================= SIGNUP FORM ================= -->
+      <form id="signupForm" class="auth-form" action="/signup" method="POST">
+        <h2 class="form-title">Create Account</h2>
+
+        <div class="form-group">
+          <label>Select Role</label>
+          <div class="role-selection">
+            <div class="role-option">
+              <input type="radio" id="roleStudent" name="role" value="Student" checked />
+              <label for="roleStudent" class="role-label">Student</label>
+            </div>
+            <div class="role-option">
+              <input type="radio" id="roleNonStudent" name="role" value="Non-Student" />
+              <label for="roleNonStudent" class="role-label">Non-Student</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="first_name" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="last_name" placeholder="Doe" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signupEmail">Email Address</label>
+          <input type="email" id="signupEmail" name="email" placeholder="john.doe@university.edu" required />
+        </div>
+
+        <div class="form-group">
+          <label for="signupPhone">Phone Number</label>
+          <input type="tel" id="signupPhone" name="phone" placeholder="+880 1700-000000" required />
+        </div>
+
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" name="password" placeholder="Minimum 8 characters" required />
+        </div>
+
+        <button type="submit" class="btn-submit">Sign Up</button>
+
+        <p class="toggle-text" style="margin-top: 18px;">
+          Already registered? 
+          <span class="toggle-link" onclick="switchForm('login')">Log In</span>
+        </p>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Link to the separated JS file -->
+  <script src="/Js/login.js"></script>
+</body>
+</html>
