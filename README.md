@@ -1,17 +1,17 @@
 Welcome to this project!
 
 
-================
-Prerequisites: |
-================
+
+Prerequisites: 
+
 
 1) Node.js
 2) XAMPP
 
 
-================
-Setup Process: |
-================
+
+Setup Process: 
+
 
 	1. Database Setup:
 
@@ -42,8 +42,8 @@ Setup Process: |
 		--> You should see two success messages in your terminal indicating that the server is running on port 3000 and the database has connected successfully.
 
 
-=======================
-Accessing the Portal: |
-=======================
+
+Accessing the Portal: 
+
 
 		--> Open your web browser and go to http://localhost:3000 if your terminal shows this same port id otherwise change the port id according to the one that you set.
