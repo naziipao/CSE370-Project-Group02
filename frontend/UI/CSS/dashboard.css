@@ -1,0 +1,324 @@
+/* ==========================================
+   1. COLOR PALETTE & GLOBAL RESET
+   ========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  --bg-deep: #080d0a;         /* Deepest background shade */
+  --bg-sidebar: #0f1712;      /* Dark green-tinted sidebar */
+  --bg-card: #142019;         /* Dark moss card background */
+  --text-bright: #f0fdf4;     /* Crisp light text */
+  --text-muted: #84a391;      /* Soft leaf-gray text */
+  --accent-green: #52b788;    /* Vibrant eco green */
+  --accent-glow: #74c69d;     /* High-light green glow */
+  --border-dark: #1b2e23;     /* Subtle container borders */
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-bright);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Dynamic Transitive Green Glow Keyframes */
+@keyframes dynamicBorder {
+  0% {
+    border-color: rgba(82, 183, 136, 0.2);
+    box-shadow: 0 0 12px rgba(82, 183, 136, 0.1);
+  }
+  50% {
+    border-color: rgba(116, 198, 157, 0.6);
+    box-shadow: 0 0 20px rgba(116, 198, 157, 0.25);
+  }
+  100% {
+    border-color: rgba(82, 183, 136, 0.2);
+    box-shadow: 0 0 12px rgba(82, 183, 136, 0.1);
+  }
+}
+
+/* ==========================================
+   2. SIDEBAR STYLING (LEFT MENU)
+   ========================================== */
+.sidebar {
+  width: 270px;
+  background-color: var(--bg-sidebar);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 16px;
+  border-right: 1.5px solid transparent;
+  /* Transitive Gradient Border for the Sidebar Right Edge */
+  border-image: linear-gradient(to bottom, #52b788, #1b2e23, #080d0a) 1;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px 24px 12px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  fill: var(--accent-green);
+  filter: drop-shadow(0 0 6px rgba(82, 183, 136, 0.5));
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 0.5px;
+}
+
+/* Navigation Links */
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+  flex-grow: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Hover Effect */
+.nav-item:hover {
+  color: var(--text-bright);
+  background-color: rgba(82, 183, 136, 0.1);
+  border-color: rgba(82, 183, 136, 0.3);
+  transform: translateX(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Active / Clicked Effect */
+.nav-item.active {
+  color: #080d0a;
+  background: linear-gradient(135deg, #52b788, #2d6a4f);
+  font-weight: 700;
+  border-color: var(--accent-glow);
+  box-shadow: 0 4px 16px rgba(82, 183, 136, 0.35);
+}
+
+.sidebar-footer {
+  border-top: 1px solid var(--border-dark);
+  padding-top: 16px;
+}
+
+.nav-item.logout:hover {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ==========================================
+   3. MAIN CONTENT AREA
+   ========================================== */
+.main-content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Dynamic Transitive Glowing Edges */
+.glow-card {
+  border: 1px solid var(--border-dark);
+  animation: dynamicBorder 6s infinite ease-in-out;
+}
+
+/* Top Header */
+.top-header {
+  background-color: var(--bg-card);
+  padding: 24px 30px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-text h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.user-name {
+  color: var(--accent-green);
+}
+
+.welcome-text p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Points Badge */
+.wallet-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(82, 183, 136, 0.12);
+  border: 1px solid var(--accent-green);
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+
+.badge-icon {
+  font-size: 1.4rem;
+}
+
+.badge-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.badge-points {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+}
+
+/* Dashboard Cards Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: var(--bg-card);
+  padding: 24px;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card-icon {
+  font-size: 1.8rem;
+}
+
+.card h3 {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 12px 0 6px 0;
+}
+
+.card-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+
+.card-value .unit {
+  font-size: 1rem;
+  color: var(--accent-green);
+}
+
+.card-subtext {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  display: block;
+}
+
+/* CTA Banner */
+.cta-banner {
+  background: linear-gradient(135deg, #142019, #0a140d);
+  padding: 28px 32px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cta-info h2 {
+  font-size: 1.3rem;
+  color: var(--accent-green);
+  margin-bottom: 6px;
+}
+
+.cta-info p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #52b788, #2d6a4f);
+  color: #080d0a;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(82, 183, 136, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--accent-glow);
+  transform: scale(1.03);
+}
+
+/* --- Brand Link Styling --- */
+.brand-link {
+  text-decoration: none;
+  color: inherit; /* Keeps your original white/gray text color */
+  display: inline-block; /* Required for the transform effect to work */
+  
+  /* The cubic-bezier creates the "bouncy" spring effect */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+/* --- Hover Effect (Bounce + Green Glow) --- */
+.brand-link:hover {
+  /* Moves the text slightly up and scales it up to make it bounce */
+  transform: translateY(-3px) scale(1.03);
+  
+  /* Creates the green edge reflection */
+  text-shadow: 
+    0 0 8px rgba(0, 255, 136, 0.6), 
+    0 0 16px rgba(0, 255, 136, 0.3);
+}
+
+.brand-link:active {
+  /* Makes it press down slightly when clicked */
+  transform: translateY(1px) scale(0.98);
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Circular Recycling - Dashboard</title>
+  <link rel="stylesheet" href="../CSS/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- LEFT SIDEBAR MENU -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <a href="dashboard.html" class="brand-link">
+          <span class="brand-title">Smart Circular Recycling</span>
+        </a>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html" class="nav-item active">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">My Profile</span>
+        </a>
+        <a href="recycling.html" class="nav-item">
+          <span class="nav-icon">♻️</span>
+          <span class="nav-label">Recycling Log</span>
+        </a>
+        <a href="wallet.html" class="nav-item">
+          <span class="nav-icon">💳</span>
+          <span class="nav-label">Wallet</span>
+        </a>
+        <a href="rankings.html" class="nav-item">
+          <span class="nav-icon">🏆</span>
+          <span class="nav-label">Rankings</span>
+        </a>
+        <a href="reward.html" class="nav-item">
+          <span class="nav-icon">🛍️</span>
+          <span class="nav-label">Rewards Store</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="/logout" class="nav-item logout">
+          <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+          <span class="nav-label">Log Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+      <header class="top-header glow-card">
+        <div class="welcome-text">
+          <h1>Welcome back, <span class="user-name" id="userName">...</span>! 👋</h1>
+          <p>Track your environmental contribution and manage your points.</p>
+        </div>
+        <div class="wallet-badge">
+          <span class="badge-icon">🌿</span>
+          <div class="badge-info">
+            <span class="badge-label">Eco Balance</span>
+            <span class="badge-points" id="headerPoints">... Points</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <div class="card glow-card">
+          <span class="card-icon">♻️</span>
+          <h3>Total Recycled</h3>
+          <!-- ID moved to a span to preserve the "kg" unit -->
+          <p class="card-value"><span id="valRecycled">...</span> <span class="unit">kg</span></p>
+          <span class="card-subtext">Lifetime contribution</span>
+        </div>
+
+        <div class="card glow-card">
+          <span class="card-icon">🏆</span>
+          <h3>University Rank</h3>
+          <!-- ID moved to a span to preserve the "#" unit -->
+          <p class="card-value">#<span id="valRank">...</span></p>
+          <span class="card-subtext">Based on Cumulative Points</span>
+        </div>
+
+        <div class="card glow-card">
+          <span class="card-icon">🛍️</span>
+          <h3>Available Rewards</h3>
+          <!-- ID moved to a span to preserve the "Vouchers" text -->
+          <p class="card-value"><span id="valVouchers">...</span> Vouchers</p>
+          <span class="card-subtext">Partner Discounts</span>
+        </div>
+      </section>
+
+      <section class="cta-banner glow-card">
+        <div class="cta-info">
+          <h2>Log Your Waste Deposit</h2>
+          <p>Scanned a recycling bin? Register your plastics, paper, or electronic waste now to claim points.</p>
+        </div>
+        <button class="btn-primary">Deposit Waste Now</button>
+      </section>
+    </main>
+  </div>
+
+  <!-- Corrected relative path for JS -->
+  <script src="../../JS/dashboard.js"></script>
+</body>
+</html>

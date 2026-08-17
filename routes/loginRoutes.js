@@ -8,4 +8,7 @@ router.post('/signup', loginController.signupUser);
 // 2. Handle Login Form Submission
 router.post('/login', loginController.loginUser);
 
+// 3. Handle Logout
+router.get('/logout', loginController.logoutUser);
+
 module.exports = router;

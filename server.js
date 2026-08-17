@@ -1,28 +1,45 @@
 const express = require('express');
 const path = require('path');
-const authRoutes = require('./routes/loginRoutes');
+const session = require('express-session');
 
-// Initializes the database connection
-require('./config/db'); 
+const authRoutes = require('./routes/loginRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
+const voucherRoutes = require('./routes/rewardRoutes');
 
 const app = express();
 const PORT = 3000;
 
-// Middleware
+// Database connection
+require('./config/db'); 
+
+// Cache Control Middleware
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    next();
+});
+
+// Session Middleware
+app.use(session({
+    secret: 'my_super_secret_key', 
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Body Parsers
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve the 'frontend' folder statically 
-// (This allows HTML to automatically find /UI/style.css and /Js/login.js)
+// Serve static frontend files
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 // Routes
-// 1. Serve the login page on the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'UI', 'HTML', 'login.html'));
 });
 
-// 2. Use the auth routes for /login and /signup endpoints
 app.use('/', authRoutes);
+app.use('/', dashboardRoutes);
+app.use('/api/vouchers', voucherRoutes);
 
 // Start Server
 app.listen(PORT, () => {

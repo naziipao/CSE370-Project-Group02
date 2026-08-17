@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Circular Recycling - Rewards Store</title>
+  <link rel="stylesheet" href="../CSS/reward.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+    <div class="brand-header">
+      <a href="dashboard.html" class="brand-link">
+        <span class="brand-title">Smart Circular Recycling</span>
+      </a>
+    </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span></a>
+        <a href="profile.html" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">My Profile</span></a>
+        <a href="recycling.html" class="nav-item"><span class="nav-icon">♻️</span><span class="nav-label">Recycling Log</span></a>
+        <a href="wallet.html" class="nav-item"><span class="nav-icon">💳</span><span class="nav-label">Wallet</span></a>
+        <a href="rankings.html" class="nav-item"><span class="nav-icon">🏆</span><span class="nav-label">Rankings</span></a>
+        <a href="reward.html" class="nav-item active"><span class="nav-icon">🛍️</span><span class="nav-label">Rewards Store</span></a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="/logout" class="nav-item logout"><span class="nav-label">Log Out</span></a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header glow-card profile-header">
+        <div class="wallet-badge">
+          <span class="badge-icon">🌿</span>
+          <div class="badge-info">
+            <span class="badge-label">Eco Balance</span>
+            <span class="badge-points" id="headerPoints">... Points</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="vouchers-section glow-card">
+        <div class="section-header">
+          <h2 class="section-title"><i class="fa-solid fa-tags"></i> Voucher Store</h2>
+          <p class="section-subtitle">Redeem your earned points for exclusive partner discounts.</p>
+        </div>
+        
+        <!-- Voucher Container -->
+        <div class="voucher-list" id="storeList">
+          <p style="color: var(--text-muted); padding: 20px;">Loading rewards...</p>
+        </div>
+
+
+      </section>
+    </main>
+  </div>
+
+  <script src="/JS/reward.js"></script>
+</body>
+</html>

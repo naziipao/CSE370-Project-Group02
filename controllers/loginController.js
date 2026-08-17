@@ -40,8 +40,13 @@ exports.signupUser = (req, res) => {
     });
 };
 
+
+
 exports.loginUser = (req, res) => {
     const { email, password } = req.body;
+    
+    // 1. Add a console.log so we can see it working in the terminal
+    console.log(`Login attempt for: ${email}`); 
 
     const query = 'SELECT * FROM `User` WHERE Email = ? AND Pin = ?';
     
@@ -53,9 +58,43 @@ exports.loginUser = (req, res) => {
 
         if (results.length > 0) {
             const user = results[0];
-            res.send(`<h2>Welcome back, ${user.FirstName} ${user.LastName}!</h2><p>Login successful.</p>`);
+            
+            // 2. Add another log to confirm the user was found
+            console.log(`User found: ${user.FirstName}. Saving session...`);
+            
+            req.session.userId = user.User_id; 
+            
+            // 3. FORCE THE SESSION TO SAVE BEFORE REDIRECTING
+            req.session.save((err) => {
+                if (err) {
+                    console.error('Session save error:', err);
+                }
+                console.log('Session saved successfully. Redirecting to dashboard...');
+                res.redirect('/UI/HTML/dashboard.html');
+            });
+
         } else {
+            console.log('Login failed: Invalid credentials.');
             res.send('<h2>Invalid email or password.</h2><a href="/">Try Again</a>');
         }
+    });
+};
+
+
+
+exports.logoutUser = (req, res) => {
+    // 1. Destroy the session
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Logout Error:', err);
+            return res.status(500).send('<h2>Error logging out.</h2><a href="/UI/HTML/dashboard.html">Go Back</a>');
+        }
+        
+        // 2. Clear the session cookie from the user's browser
+        res.clearCookie('connect.sid'); 
+        
+        // 3. Redirect back to the login page
+        console.log('User logged out successfully.');
+        res.redirect('/');
     });
 };
