@@ -52,12 +52,12 @@ const getDashboardData = async (req, res) => {
       if (studentRows.length > 0 && studentRows[0].institute_EIIN) {
         const eiin = studentRows[0].institute_EIIN;
         
-        const instituteRows = await executeQuery('SELECT cumulative_points FROM edu_institute_stats WHERE institute_EIIN = ?', [eiin]);
+        const instituteRows = await executeQuery('SELECT CumulativeEarnedPoints FROM edu_institute_stats WHERE institute_EIIN = ?', [eiin]);
         
         if (instituteRows.length > 0) {
           const myInstitutePoints = instituteRows[0].cumulative_points || 0;
           
-          const rankRows = await executeQuery('SELECT COUNT(*) AS higher_count FROM edu_institute_stats WHERE cumulative_points > ?', [myInstitutePoints]);
+          const rankRows = await executeQuery('SELECT COUNT(*) AS higher_count FROM edu_institute_stats WHERE CumulativeEarnedPoints > ?', [myInstitutePoints]);
           
           if (rankRows.length > 0) {
             universityRank = rankRows[0].higher_count + 1;
