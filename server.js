@@ -5,6 +5,7 @@ const session = require('express-session');
 const authRoutes = require('./routes/loginRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const voucherRoutes = require('./routes/rewardRoutes');
+const rankingsRoutes = require('./routes/rankingsRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -40,6 +41,7 @@ app.get('/', (req, res) => {
 app.use('/', authRoutes);
 app.use('/', dashboardRoutes);
 app.use('/api/vouchers', voucherRoutes);
+app.use('/api/rankings', rankingsRoutes);
 
 // Start Server
 app.listen(PORT, () => {

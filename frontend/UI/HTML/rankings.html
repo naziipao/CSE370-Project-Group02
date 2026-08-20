@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Circular Recycling - Rankings</title>
+  <link rel="stylesheet" href="../CSS/rankings.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- LEFT SIDEBAR MENU -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <a href="dashboard.html" class="brand-link">
+          <span class="brand-title">Smart Circular Recycling</span>
+        </a>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span></a>
+        <a href="profile.html" class="nav-item"><span class="nav-icon">👤</span><span class="nav-label">My Profile</span></a>
+        <a href="recycling.html" class="nav-item"><span class="nav-icon">♻️</span><span class="nav-label">Recycling Log</span></a>
+        <a href="wallet.html" class="nav-item"><span class="nav-icon">💳</span><span class="nav-label">Wallet</span></a>
+        <a href="rankings.html" class="nav-item active"><span class="nav-icon">🏆</span><span class="nav-label">Rankings</span></a>
+        <a href="reward.html" class="nav-item"><span class="nav-icon">🛍️</span><span class="nav-label">Rewards Store</span></a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="/logout" class="nav-item logout">
+          <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+          <span class="nav-label">Log Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+
+      <header class="top-header glow-card">
+        <div class="welcome-text">
+          <h1>Institute <span class="user-name">Rankings</span> 🏆</h1>
+          <p>Institutes ordered by cumulative recycling points, recalculated from the database on every load.</p>
+        </div>
+        <div class="header-actions">
+          <div class="live-status">
+            <span class="live-dot"></span>
+            <span id="lastUpdated">Loading…</span>
+          </div>
+          <button class="btn-refresh" id="refreshBtn">Refresh now</button>
+        </div>
+      </header>
+
+      <!-- The logged-in user's own institute -->
+      <section class="rank-hero glow-card" id="myInstituteCard">
+        <div class="hero-left">
+          <span class="hero-rank" id="myRank">—</span>
+          <div>
+            <span class="hero-label">Your institute</span>
+            <h2 class="hero-name" id="myInstituteName">Loading…</h2>
+            <p class="hero-meta" id="myInstituteMeta"></p>
+          </div>
+        </div>
+        <div class="hero-points">
+          <span class="hero-label">Cumulative points</span>
+          <strong id="myPoints">—</strong>
+        </div>
+      </section>
+
+      <!-- Top three -->
+      <section class="podium" id="podium"></section>
+
+      <!-- Full table -->
+      <section class="table-section glow-card">
+        <div class="section-head">
+          <h2>All institutes</h2>
+          <span class="section-count" id="totalInstitutes"></span>
+        </div>
+
+        <table class="rank-table">
+          <thead>
+            <tr>
+              <th class="col-rank">Rank</th>
+              <th>Institute</th>
+              <th class="col-right">Members</th>
+              <th class="col-right">Total points</th>
+            </tr>
+          </thead>
+          <tbody id="rankTableBody">
+            <tr><td colspan="4" class="table-msg">Loading rankings…</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="/JS/rankings.js"></script>
+</body>
+</html>

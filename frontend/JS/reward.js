@@ -3,37 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const storeList = document.getElementById('storeList');
   const headerPoints = document.getElementById('headerPoints');
 
-  // --- Reverted, Stable Custom Modal Helper ---
-// --- Brutally Simple Custom Modal Helper ---
-  function showCustomModal(title, message, isConfirm = false) {
-    return new Promise((resolve) => {
-      const modal = document.getElementById('customModal');
-      const btnConfirm = document.getElementById('modalBtnConfirm');
-      const btnCancel = document.getElementById('modalBtnCancel');
-
-      // Set text
-      document.getElementById('modalTitle').textContent = title;
-      document.getElementById('modalMessage').textContent = message;
-
-      // Show/Hide Cancel
-      btnCancel.style.display = isConfirm ? 'inline-block' : 'none';
-      
-      // Show Modal
-      modal.classList.add('active');
-
-      // Direct assignment completely overwrites any broken/stuck listeners
-      btnConfirm.onclick = () => {
-        modal.classList.remove('active');
-        resolve(true);
-      };
-
-      btnCancel.onclick = () => {
-        modal.classList.remove('active');
-        resolve(false);
-      };
-    });
-  }
-
   async function loadVouchers() {
     try {
       storeList.innerHTML = '<p style="color: var(--text-muted); padding: 20px;">Loading rewards...</p>';
@@ -61,7 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3 style="margin:0 0 5px 0;">${v.voucher_name}</h3>
             <p style="margin:0; color: #a0aec0;">${v.company_name || 'Partner'} — <strong>${v.required_points}</strong> Points</p>
           </div>
-          <button onclick="obtainVoucher('${v.voucher_id}')" class="btn-purchase">
+          <button 
+            onclick="obtainVoucher('${v.voucher_id}')" 
+            style="padding: 8px 16px; background-color: #00ff88; color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
             Obtain Voucher
           </button>
         </div>
@@ -74,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.obtainVoucher = async function(voucherId) {
-    const isConfirmed = await showCustomModal('Confirm Purchase', 'Are you sure you want to obtain this voucher?', true);
-    if (!isConfirmed) return;
+    if (!confirm('Are you sure you want to obtain this voucher?')) return;
 
     try {
+      // Pointing to your existing /purchase route
       const response = await fetch('/api/vouchers/purchase', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -87,18 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        await showCustomModal('Error', data.message || 'Failed to obtain voucher.');
+        alert(data.message || 'Failed to obtain voucher.');
         return;
       }
 
-      await showCustomModal('Success!', data.message);
+      alert(data.message);
 
+      // Update the header points immediately with the newly calculated balance
       if (headerPoints && data.newBalance !== undefined) {
         headerPoints.textContent = `${data.newBalance} Points`;
       }
     } catch (err) {
       console.error('Purchase error:', err);
-      await showCustomModal('Error', 'Error processing request: ' + err.message);
+      alert('Error processing request: ' + err.message);
     }
   };
 

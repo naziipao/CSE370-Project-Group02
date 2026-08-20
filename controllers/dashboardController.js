@@ -1,5 +1,8 @@
 // File: controllers/dashboardController.js
+// PATCHED: the University Rank block now reuses the rankings leaderboard,
+// so the dashboard number and the Rankings page can never disagree.
 const db = require('../config/db');
+const { getLeaderboard } = require('./rankingsController');
 
 const executeQuery = (query, params = []) => {
   return new Promise((resolve, reject) => {
@@ -44,25 +47,20 @@ const getDashboardData = async (req, res) => {
     const lastName = row.LastName || '';
     const fullName = `${firstName} ${lastName}`.trim();
 
-    // 2. Calculate University Rank
+    // 2. University Rank - reuse the same leaderboard the Rankings page uses.
     let universityRank = 'N/A';
     try {
-      const studentRows = await executeQuery('SELECT institute_EIIN FROM student WHERE User_id = ? OR user_id = ?', [userId, userId]);
-      
+      const studentRows = await executeQuery(
+        'SELECT institute_EIIN FROM student WHERE User_id = ?',
+        [userId]
+      );
+
       if (studentRows.length > 0 && studentRows[0].institute_EIIN) {
-        const eiin = studentRows[0].institute_EIIN;
-        
-        const instituteRows = await executeQuery('SELECT CumulativeEarnedPoints FROM edu_institute_stats WHERE institute_EIIN = ?', [eiin]);
-        
-        if (instituteRows.length > 0) {
-          const myInstitutePoints = instituteRows[0].cumulative_points || 0;
-          
-          const rankRows = await executeQuery('SELECT COUNT(*) AS higher_count FROM edu_institute_stats WHERE CumulativeEarnedPoints > ?', [myInstitutePoints]);
-          
-          if (rankRows.length > 0) {
-            universityRank = rankRows[0].higher_count + 1;
-          }
-        }
+        const myEiin = studentRows[0].institute_EIIN;
+        const leaderboard = await getLeaderboard();
+        const myInstitute = leaderboard.find(item => item.eiin === myEiin);
+
+        if (myInstitute) universityRank = myInstitute.rank;
       }
     } catch (e) {
       console.warn('University rank calculation warning:', e.message);
@@ -77,9 +75,9 @@ const getDashboardData = async (req, res) => {
         firstName: firstName,
         ecoBalance: row.spendable_balance,
         badgePoints: row.current_badge_points || 0,
-        totalRecycledKg: row.total_recycled || 0, 
-        availableVouchers: row.user_vouchers || 0, // Now fetches directly from wallet.voucher!
-        rank: universityRank 
+        totalRecycledKg: row.total_recycled || 0,
+        availableVouchers: row.user_vouchers || 0,
+        rank: universityRank
       }
     });
 
