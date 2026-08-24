@@ -127,6 +127,13 @@ $is_recycler = isset($_SESSION['recycler_id']);
             <span class="nav-label">Rewards Store</span>
           </a>
 
+          <!-- NEW: User Profile Tab -->
+          <a href="profile.php"
+             class="nav-item <?= ($currentPage == 'profile.php') ? 'active' : '' ?>">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">User Profile</span>
+          </a>
+
         </nav>
 
         <div class="sidebar-footer">
