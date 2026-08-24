@@ -1,0 +1,522 @@
+/* ==========================================
+   recycler.css  -  styles for recycler_requests.php
+
+   CSS/main.css is loaded first by header.php and supplies the
+   colour variables and the sidebar. This file only adds the
+   pieces that belong to the recycler screen.
+
+   It repeats a few blocks from pickup.css on purpose, so the
+   recycler page works even if pickup.css is not loaded.
+   ========================================== */
+
+
+/* ==========================================
+   1. PAGE HEADER
+   ========================================== */
+.top-header {
+  background-color: var(--bg-card);
+  padding: 24px 30px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.welcome-text h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.welcome-text p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.area-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(82, 183, 136, 0.12);
+  border: 1px solid var(--accent-green);
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+
+.badge-icon { font-size: 1.4rem; }
+
+.badge-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-points {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+}
+
+
+/* ==========================================
+   2. CARDS
+   ========================================== */
+.pickup-card {
+  background-color: var(--bg-card);
+  padding: 26px 30px;
+  border-radius: 16px;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+.count-pill {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background-color: rgba(82, 183, 136, 0.1);
+  border: 1px solid var(--border-dark);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.empty-msg {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  padding: 10px 0;
+  line-height: 1.6;
+}
+
+/* The job you are currently on gets a green edge */
+.current-job {
+  border-left: 4px solid var(--accent-green);
+}
+
+
+/* ==========================================
+   3. STATUS PILLS
+   ========================================== */
+.status-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.status-pending {
+  background-color: rgba(234, 179, 8, 0.15);
+  color: #eab308;
+  border: 1px solid rgba(234, 179, 8, 0.4);
+}
+
+.status-assigned {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.status-on-the-way {
+  background-color: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.status-arrived {
+  background-color: rgba(82, 183, 136, 0.2);
+  color: var(--accent-glow);
+  border: 1px solid var(--accent-green);
+}
+
+.status-completed {
+  background-color: rgba(82, 183, 136, 0.12);
+  color: var(--accent-green);
+  border: 1px solid rgba(82, 183, 136, 0.35);
+}
+
+.status-cancelled {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+
+/* ==========================================
+   4. CURRENT JOB DETAILS
+   ========================================== */
+.pickup-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px 16px;
+  background-color: rgba(8, 13, 10, 0.5);
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+}
+
+.detail-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  word-break: break-word;
+}
+
+
+/* ==========================================
+   5. OPEN REQUEST CARDS
+
+   Laid out like ride-hailing job cards: one tile per request,
+   with the Accept button pinned at the bottom.
+   ========================================== */
+.job-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 18px;
+}
+
+.job-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px;
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(20, 32, 25, 0.9), rgba(8, 13, 10, 0.75));
+  border: 1px solid var(--border-dark);
+  transition: transform 0.25s ease, border-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-green);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.job-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.job-id {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+.job-type {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 11px;
+  border-radius: 20px;
+  background-color: rgba(82, 183, 136, 0.15);
+  color: var(--accent-glow);
+  border: 1px solid rgba(82, 183, 136, 0.35);
+}
+
+.job-customer {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 10px;
+}
+
+.job-line {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.job-note {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--accent-glow);
+  background-color: rgba(82, 183, 136, 0.07);
+  border-left: 3px solid var(--accent-green);
+  padding: 9px 12px;
+  border-radius: 0 8px 8px 0;
+  margin: 10px 0;
+}
+
+/* margin-top:auto pushes the form to the bottom, so every card
+   has its Accept button on the same line no matter how much
+   text is above it. */
+.accept-form {
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.center-select {
+  width: 100%;
+  padding: 10px 13px;
+  margin-bottom: 10px;
+  border-radius: 9px;
+  border: 1px solid var(--border-dark);
+  background-color: rgba(8, 13, 10, 0.8);
+  color: var(--text-bright);
+  font-size: 0.84rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.center-select:focus {
+  border-color: var(--accent-green);
+}
+
+.center-select option {
+  background-color: #142019;
+  color: var(--text-bright);
+}
+
+.btn-accept {
+  width: 100%;
+  background: linear-gradient(135deg, #52b788, #2d6a4f);
+  color: #08150e;
+  border: none;
+  padding: 13px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(82, 183, 136, 0.25);
+}
+
+.btn-accept:hover {
+  background: var(--accent-glow);
+  transform: scale(1.02);
+}
+
+
+/* ==========================================
+   6. ACTION BUTTONS
+   ========================================== */
+.status-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-step {
+  background-color: rgba(82, 183, 136, 0.12);
+  color: var(--text-bright);
+  border: 1px solid var(--border-dark);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.87rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-step:hover {
+  border-color: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+/* "I have arrived" - the one that sets off the user's alert */
+.btn-step.highlight {
+  background: linear-gradient(135deg, #52b788, #2d6a4f);
+  color: #08150e;
+  font-weight: 700;
+  border-color: var(--accent-glow);
+  animation: stepGlow 2.4s ease-in-out infinite;
+}
+
+@keyframes stepGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(116, 198, 157, 0.35); }
+  50%      { box-shadow: 0 0 0 9px rgba(116, 198, 157, 0); }
+}
+
+.btn-step.danger {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.btn-step.danger:hover {
+  border-color: #f87171;
+}
+
+.btn-call {
+  background: linear-gradient(135deg, #52b788, #2d6a4f);
+  color: #08150e;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  transition: transform 0.2s ease;
+}
+
+.btn-call:hover {
+  transform: scale(1.04);
+}
+
+.waiting-for-user {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background-color: rgba(234, 179, 8, 0.07);
+  border: 1px dashed rgba(234, 179, 8, 0.35);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+
+/* ==========================================
+   7. HISTORY TABLE
+   ========================================== */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.history-table td {
+  padding: 14px;
+  font-size: 0.87rem;
+  color: var(--text-bright);
+  border-bottom: 1px solid rgba(27, 46, 35, 0.5);
+}
+
+.history-table tr:last-child td {
+  border-bottom: none;
+}
+
+.history-table tr:hover td {
+  background-color: rgba(82, 183, 136, 0.04);
+}
+
+@media (max-width: 760px) {
+  .history-table th:nth-child(4),
+  .history-table td:nth-child(4) {
+    display: none;
+  }
+}
+
+
+/* ==========================================
+   8. RECYCLER SIDEBAR EXTRAS
+
+   header.php adds .recycler-sidebar and prints a small
+   "signed in as" block above the log out button.
+   ========================================== */
+.who-line {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding: 0 16px 14px 16px;
+}
+
+.who-line strong {
+  color: var(--text-bright);
+  font-size: 0.92rem;
+}
+
+.who-city {
+  color: var(--accent-green);
+  font-size: 0.78rem;
+}
+
+/* A different edge colour makes it obvious at a glance that
+   this is the recycler view, not a normal user's. */
+.recycler-sidebar {
+  border-image: linear-gradient(to bottom, #74c69d, #1b2e23, #080d0a) 1;
+}
+/* ============================================================
+   ADD THESE TO THE END OF CSS/recycler.css
+   (recycler's own confirmation box for feature 4)
+   ============================================================ */
+
+
+/* The box where the recycler confirms they collected the waste */
+.confirm-box {
+  margin-top: 18px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  background-color: rgba(82, 183, 136, 0.08);
+  border: 1px solid rgba(82, 183, 136, 0.35);
+}
+
+.confirm-box p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.btn-confirm-recycler {
+  background: linear-gradient(135deg, #52b788, #2d6a4f);
+  color: #08150e;
+  border: none;
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-confirm-recycler:hover {
+  transform: scale(1.03);
+}
+
+/* the "Collected" status pill, in case recycler.css is loaded alone */
+.status-collected {
+  background-color: rgba(82, 183, 136, 0.12);
+  color: var(--accent-green);
+  border: 1px solid rgba(82, 183, 136, 0.35);
+}
