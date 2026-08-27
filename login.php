@@ -2,14 +2,14 @@
 /* ============================================================
    login.php
 
-   Combines three old files:
-     - frontend/UI/HTML/login.html    (the markup below)
-     - frontend/JS/login.js           (the form toggle)
-     - controllers/loginController.js (signup + login logic)
-
    One login form serves two kinds of account. The email is
    looked for in `user` first, then in `recycler`. Whichever
    table it turns up in decides where the person lands.
+
+   VISUAL UPDATE: added the dark "glazing" gradient background and
+   the spinning-recycle-icon loading overlay on submit. Nothing in
+   the PHP logic below changed - only the <head>/<body> markup and
+   one small <script> block at the very bottom.
    ============================================================ */
 
 
@@ -309,7 +309,6 @@ $today = date('Y-m-d');
 
 
 /* ===== 4. THE PAGE ===== */
-// Layout and classes are exactly as in the original login.html.
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -323,8 +322,21 @@ $today = date('Y-m-d');
 <body>
 
   <div class="auth-container">
+
+    <!-- Loading overlay: shown for 2 seconds after submit, while the
+         recycle icon spins, before the form actually posts. Pure UI
+         polish - the real POST to login.php still happens exactly
+         as before, just delayed slightly by the JS at the bottom. -->
+    <div id="loadingOverlay" class="loading-overlay">
+      <svg class="animated-recycle-icon" viewBox="0 0 24 24">
+        <path d="M12 2L9.5 6.5H14.5L12 2ZM4.5 10.5L2 15H7L4.5 10.5ZM19.5 10.5L17 15H22L19.5 10.5ZM10.2 8.5L7.7 13H11.2L9.7 10.3L10.2 8.5ZM13.8 8.5L14.3 10.3L12.8 13H16.3L13.8 8.5ZM8.5 16.5L6 21H18L15.5 16.5H8.5Z"/>
+      </svg>
+      <p id="overlayText" class="loading-text">Signing in...</p>
+      <p class="loading-subtext">Redirecting you to the Platform</p>
+    </div>
+
     <div class="brand-header">
-      <svg class="brand-icon" viewBox="0 0 24 24">
+      <svg id="brandIcon" class="brand-icon" viewBox="0 0 24 24">
         <path d="M12 2L9.5 6.5H14.5L12 2ZM4.5 10.5L2 15H7L4.5 10.5ZM19.5 10.5L17 15H22L19.5 10.5ZM10.2 8.5L7.7 13H11.2L9.7 10.3L10.2 8.5ZM13.8 8.5L14.3 10.3L12.8 13H16.3L13.8 8.5ZM8.5 16.5L6 21H18L15.5 16.5H8.5Z"/>
       </svg>
       <h1 class="brand-title">Smart Circular Recycling</h1>
@@ -338,7 +350,8 @@ $today = date('Y-m-d');
       <!-- ================= LOGIN FORM ================= -->
       <form id="loginForm"
             class="auth-form <?= $show == 'login' ? 'active' : '' ?>"
-            action="login.php" method="POST">
+            action="login.php" method="POST"
+            onsubmit="handleAuth(event, 'Logging in...')">
 
         <input type="hidden" name="action" value="login">
 
@@ -374,7 +387,8 @@ $today = date('Y-m-d');
       <!-- ================= SIGNUP FORM ================= -->
       <form id="signupForm"
             class="auth-form <?= $show == 'signup' ? 'active' : '' ?>"
-            action="login.php" method="POST">
+            action="login.php" method="POST"
+            onsubmit="handleAuth(event, 'Creating Account...')">
 
         <input type="hidden" name="action" value="signup">
 
@@ -475,8 +489,8 @@ $today = date('Y-m-d');
 
           <div class="form-group">
             <label for="signupInstitute">Institute</label>
-            <select id="signupInstitute" name="institute_eiin" 
-                    onchange="this.setAttribute('data-selected', this.value)" 
+            <select id="signupInstitute" name="institute_eiin"
+                    onchange="this.setAttribute('data-selected', this.value)"
                     data-selected="<?= htmlspecialchars($old['institute_eiin'] ?? '') ?>">
               <option value="">Select your institute...</option>
               <?php foreach ($institutes as $inst): ?>
@@ -581,6 +595,30 @@ $today = date('Y-m-d');
 
     </div>
   </div>
+
+  <script>
+    /* Shows the spinning-recycle overlay, then submits the form
+       for real after a short delay. This never touches the PHP
+       above - it only delays the ordinary POST by two seconds so
+       the animation is visible. If a required field is empty, the
+       browser blocks submission and this handler never runs at
+       all, so normal form validation still works exactly as before. */
+    function handleAuth(event, statusMessage) {
+      event.preventDefault();
+
+      const overlay     = document.getElementById('loadingOverlay');
+      const brandIcon    = document.getElementById('brandIcon');
+      const overlayText = document.getElementById('overlayText');
+
+      overlayText.textContent = statusMessage;
+      overlay.classList.add('active');
+      brandIcon.classList.add('spinning');
+
+      setTimeout(() => {
+        event.target.submit();
+      }, 2000);
+    }
+  </script>
 
 </body>
 </html>
