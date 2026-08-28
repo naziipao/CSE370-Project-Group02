@@ -1,0 +1,162 @@
+/* ==========================================
+   css/reward.css
+   Specific styling for the Rewards Store UI
+   ========================================== */
+
+/* Update this existing rule to space elements out */
+.profile-header { 
+  justify-content: space-between; 
+  align-items: center;
+}
+
+/* --- NEW SPECIAL TITLE STYLING --- */
+.header-title-area h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  
+  /* Creates a seamless gradient blending from white to your accent green */
+  background: linear-gradient(135deg, var(--text-bright), var(--accent-green));
+  
+  /* Clips the background to the text itself */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  /* Adds a very subtle green glow behind the text */
+  filter: drop-shadow(0 2px 8px rgba(82, 183, 136, 0.2));
+}
+
+.header-title-area p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.vouchers-section {
+  background-color: var(--bg-card); 
+  padding: 30px; 
+  border-radius: 16px;
+  margin-top: 28px;
+}
+
+.section-header { 
+  margin-bottom: 24px; 
+}
+
+.section-title { 
+  font-size: 1.3rem; 
+  color: var(--accent-green); 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  margin-bottom: 6px; 
+}
+
+.section-subtitle { 
+  color: var(--text-muted); 
+  font-size: 0.9rem; 
+}
+
+.voucher-list {
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+  min-height: 400px;
+}
+
+.voucher-store-item {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  background-color: rgba(8, 13, 10, 0.4); 
+  padding: 20px; 
+  border-radius: 12px;
+  border: 1px solid var(--border-dark); 
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.voucher-store-item:hover {
+  transform: translateX(4px); 
+  border-color: var(--accent-green); 
+  background-color: rgba(82, 183, 136, 0.05);
+}
+
+.v-main-info { 
+  display: flex; 
+  align-items: center; 
+  gap: 16px; 
+}
+
+.v-icon {
+  font-size: 1.8rem; 
+  background-color: rgba(82, 183, 136, 0.1);
+  padding: 14px; 
+  border-radius: 12px; 
+  color: var(--accent-green);
+}
+
+.v-title { 
+  font-size: 1.1rem; 
+  color: var(--text-bright); 
+  margin-bottom: 4px; 
+}
+
+.v-company { 
+  font-size: 0.85rem; 
+  color: var(--text-muted); 
+  display: block; 
+}
+
+.v-meta { 
+  display: flex; 
+  align-items: center; 
+  gap: 20px;
+}
+
+.v-detail-block { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 4px; 
+}
+
+.right-align { 
+  align-items: flex-end; 
+}
+
+.v-label { 
+  font-size: 0.8rem; 
+  color: var(--text-muted); 
+  text-transform: uppercase; 
+}
+
+.v-value { 
+  font-size: 0.95rem; 
+  font-weight: 600; 
+  color: var(--text-bright); 
+}
+
+.v-points-cost { 
+  font-size: 1.1rem; 
+  font-weight: 700; 
+  color: var(--accent-glow); 
+}
+
+.btn-purchase {
+  background: linear-gradient(135deg, #52b788, #2d6a4f); 
+  color: #080d0a;
+  border: none; 
+  padding: 10px 24px; 
+  border-radius: 8px; 
+  font-weight: 700;
+  font-size: 0.9rem; 
+  cursor: pointer; 
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(82, 183, 136, 0.2); 
+  margin-left: 10px;
+}
+
+.btn-purchase:hover { 
+  background: var(--accent-glow); 
+  transform: scale(1.05); 
+}
