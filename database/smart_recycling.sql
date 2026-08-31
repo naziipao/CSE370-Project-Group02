@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2026 at 06:53 PM
+-- Generation Time: Aug 31, 2026 at 03:52 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -22,16 +22,6 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
-
--- Table for storing transaction history for all users
-CREATE TABLE `voucher_transaction_history` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `user_id` INT NOT NULL, /* Change to VARCHAR(50) if your user_id is text-based */
-    `reward_id` VARCHAR(50) NOT NULL,
-    `purchase_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-);
 
 --
 -- Table structure for table `branch`
@@ -297,25 +287,14 @@ CREATE TABLE `non_student` (
 INSERT INTO `non_student` (`User_id`, `NID`, `Occupation`) VALUES
 (30776855, '198543210505', 'Doctor'),
 (37147258, '200543210808', 'Designer'),
-(46937022, '198654321020', 'Pharmacist'),
-(48962133, '197654321404', 'Banker'),
 (134305862, '196543210606', 'Homemaker'),
-(163551872, '200876543515', 'Consultant'),
 (208595783, '199876543202', 'Businessperson'),
 (220629670, '199765432717', 'Manager'),
-(231806499, '198765432101', 'Teacher'),
 (285969411, '199876543313', 'Journalist'),
-(320310141, '199765432010', 'Shopkeeper'),
-(356966335, '197876543212', 'Driver'),
 (381123432, '198987654414', 'Entrepreneur'),
-(451831903, '198876543111', 'Lawyer'),
-(511192176, '200987654303', 'Engineer'),
-(643110575, NULL, NULL),
 (767516284, '196876543616', 'Retired'),
 (822539989, '200765432818', 'Artist'),
-(836588097, '198765432909', 'Accountant'),
-(950660445, '199654321919', 'Chef'),
-(965064893, '199543210707', 'Freelancer');
+(950660445, '199654321919', 'Chef');
 
 -- --------------------------------------------------------
 
@@ -594,26 +573,15 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`User_id`, `Student_id`, `institute_EIIN`) VALUES
-(30776855, 'STU005', '100005'),
-(37147258, 'STU008', '100008'),
 (46937022, 'STU020', '100010'),
 (48962133, 'STU004', '100004'),
-(134305862, 'STU006', '100006'),
 (163551872, 'STU015', '100005'),
-(208595783, 'STU002', '100002'),
-(220629670, 'STU017', '100007'),
 (231806499, 'STU001', '100001'),
-(232178925, NULL, NULL),
-(285969411, 'STU013', '100003'),
 (320310141, 'STU010', '100010'),
 (356966335, 'STU012', '100002'),
-(381123432, 'STU014', '100004'),
 (451831903, 'STU011', '100001'),
 (511192176, 'STU003', '100003'),
-(767516284, 'STU016', '100006'),
-(822539989, 'STU018', '100008'),
 (836588097, 'STU009', '100009'),
-(950660445, 'STU019', '100009'),
 (965064893, 'STU007', '100007');
 
 -- --------------------------------------------------------
@@ -685,14 +653,14 @@ INSERT INTO `user` (`User_id`, `Pin`, `DOB`, `StreetAddress`, `City`, `FirstName
 (48962133, 'qM4+!pj?Qjh', '1979-10-20', 'Shaheb Bazar Road', 'Rajshahi', 'Farzana', 'Akter', 'Female', 'farzana.akter@gmail.com', 'Diamond User', 1200, 12.2),
 (134305862, 'pA1HOykfUE7qV', '1998-08-25', 'Sadar Road', 'Barishal', 'Shamima', 'Begum', 'Female', 'shamima.begum@gmail.com', 'Bronze User', 55, 41.3),
 (163551872, 'tP1\0cm,', '2001-04-16', 'College Road', 'Tangail', 'Jannatul', 'Ferdous', 'Female', 'jannatul.ferdous@gmail.com', 'Diamond', 1160, 22),
-(208595783, 'pR8,kRBcx\'m`B)1', '2004-04-06', 'Road 11, Nasirabad', 'Chattogram', 'Nusrat', 'Jahan', 'Female', 'nusrat.jahan@gmail.com', 'Diamond', 1330, 34.8),
+(208595783, 'nusrat123', '2004-04-06', 'Road 11, Nasirabad', 'Chattogram', 'Nusrat', 'Jahan', 'Female', 'nusrat.jahan@gmail.com', 'Diamond', 1330, 34.8),
 (220629670, 'qK8?BTkV%', '1997-05-21', 'Edward College Road', 'Pabna', 'Mehedi', 'Hasan', 'Male', 'mehedi.hasan@gmail.com', 'Diamond User', 1050, 6.4),
 (231806499, 'zQ2_ge`>6upE', '1970-05-15', 'Road 7, Dhanmondi', 'Dhaka', 'Sabbir', 'Rahman', 'Male', 'sabbir.rahman@gmail.com', 'Bronze User', 299, 26.1),
 (232178925, 'riponmia123', NULL, NULL, NULL, 'Ripon', 'Mia', NULL, 'riponmia2026@yahoo.com', 'Bronze User', 0, 12.1),
 (285969411, 'iH6#eSRv', '1989-10-05', 'Sherpur Road', 'Bogura', 'Rumana', 'Yasmin', 'Female', 'rumana.yasmin@gmail.com', 'Gold User', 999, 30.5),
 (320310141, 'dA7)P_Zm,l', '1998-07-08', 'Joydebpur Road', 'Gazipur', 'Tanvir', 'Hossain', 'Male', 'tanvir.hossain@gmail.com', 'Diamond User', 1500, 17.2),
 (356966335, 'vY0{@bTRcoEp\'', '1992-12-26', 'Kolatoli Road', 'Cox\'s Bazar', 'Imran', 'Kabir', 'Male', 'imran.kabir@gmail.com', 'Bronze User', 250, 42.5),
-(381123432, 'rD6_|PG.QV', '1993-01-07', 'Mujib Sarak', 'Jashore', 'Arif', 'Chowdhury', 'Male', 'arif.chowdhury@gmail.com', 'Silver User', 350, 12.7),
+(381123432, 'test123', '1993-01-07', 'Mujib Sarak', 'Jashore', 'Arif', 'Chowdhury', 'Male', 'arif.chowdhury@gmail.com', 'Silver User', 350, 12.7),
 (451831903, 'iY4!jxLc', '1995-04-29', 'Chashara Main Road', 'Narayanganj', 'Maliha', 'Sultana', 'Female', 'maliha.sultana@gmail.com', 'Gold User', 650, 33),
 (511192176, 'lF1*W#6_Q+\"+3(03', '2005-08-27', 'Amberkhana Main Road', 'Sylhet', 'Tahmid', 'Hasan', 'Male', 'tahmid.hasan@gmail.com', 'Diamond', 1400, 27.9),
 (643110575, 'harrypotter2026', NULL, NULL, NULL, 'Harry', 'Potter', NULL, 'harrypotter45@outlook.com', 'Bronze User', 0, 39.6),
@@ -701,6 +669,27 @@ INSERT INTO `user` (`User_id`, `Pin`, `DOB`, `StreetAddress`, `City`, `FirstName
 (836588097, 'zQ2,K8IqJI', '2001-06-23', 'Kandirpar Main Road', 'Cumilla', 'Sumaiya', 'Islam', 'Female', 'sumaiya.islam@gmail.com', 'Diamond User', 1800, 26.3),
 (950660445, 'qT0*m&jk8,F', '2009-03-26', 'Grand Trunk Road', 'Feni', 'Adnan', 'Haque', 'Male', 'adnan.haque@gmail.com', 'Bronze User', 150, 18.3),
 (965064893, 'iR7\ZLUpMR.?>', '2009-05-05', 'Station Road', 'Rangpur', 'Afsana', 'Khatun', 'Female', 'afsana.khatun@gmail.com', 'Silver User', 400, 11.5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voucher_transaction_history`
+--
+
+CREATE TABLE `voucher_transaction_history` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `reward_id` varchar(20) NOT NULL,
+  `purchase_date` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `voucher_transaction_history`
+--
+
+INSERT INTO `voucher_transaction_history` (`id`, `user_id`, `reward_id`, `purchase_date`) VALUES
+(1, 208595783, 'REW001', '2026-08-31 18:54:28'),
+(2, 208595783, 'REW003', '2026-08-31 18:54:32');
 
 -- --------------------------------------------------------
 
@@ -722,7 +711,7 @@ CREATE TABLE `wallet` (
 
 INSERT INTO `wallet` (`wallet_id`, `current_points`, `User_id`, `transaction_date`, `voucher`) VALUES
 ('WAL001', 1250, 231806499, '2026-07-01', 9),
-('WAL002', 1330, 208595783, '2026-07-02', 7),
+('WAL002', 300, 208595783, '2026-07-02', 9),
 ('WAL003', 1400, 511192176, '2026-07-03', 8),
 ('WAL004', 620, 48962133, '2026-07-04', 8),
 ('WAL005', 2100, 30776855, '2026-07-05', 6),
@@ -868,6 +857,14 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `Email` (`Email`);
 
 --
+-- Indexes for table `voucher_transaction_history`
+--
+ALTER TABLE `voucher_transaction_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `reward_id` (`reward_id`);
+
+--
 -- Indexes for table `wallet`
 --
 ALTER TABLE `wallet`
@@ -895,6 +892,12 @@ ALTER TABLE `deposit_request`
 --
 ALTER TABLE `pickup_request`
   MODIFY `pickup_seq` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `voucher_transaction_history`
+--
+ALTER TABLE `voucher_transaction_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -978,6 +981,13 @@ ALTER TABLE `student`
 --
 ALTER TABLE `student_edu_level`
   ADD CONSTRAINT `student_edu_level_ibfk_1` FOREIGN KEY (`User_id`) REFERENCES `user` (`User_id`);
+
+--
+-- Constraints for table `voucher_transaction_history`
+--
+ALTER TABLE `voucher_transaction_history`
+  ADD CONSTRAINT `voucher_transaction_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`User_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `voucher_transaction_history_ibfk_2` FOREIGN KEY (`reward_id`) REFERENCES `reward` (`reward_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `wallet`
