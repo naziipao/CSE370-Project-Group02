@@ -22,6 +22,13 @@ function calculateBadge($points) {
     return 'Bronze';
 }
 
+// Display-only: which emoji goes next to the badge name. Does not
+// change calculateBadge() or anything it's used for elsewhere.
+function badgeEmoji($tier) {
+    $emojis = ['Bronze' => '🥉', 'Silver' => '🥈', 'Gold' => '🥇', 'Diamond' => '💎'];
+    return $emojis[$tier] ?? '🥉';
+}
+
 // ---------------------------------------------------------
 // 1. POST ACTION: UPDATE PROFILE DETAILS
 // ---------------------------------------------------------
@@ -214,7 +221,7 @@ require_once 'header.php';
                 <p class="wallet-title">Available Points</p>
                 <h2 class="wallet-points"><?= $current_points; ?></h2>
                 <p class="wallet-tier">
-                    Tier: <span><?= calculateBadge($current_points); ?></span>
+                    Badge: <span><?= badgeEmoji(calculateBadge($current_points)) ?> <?= calculateBadge($current_points); ?></span>
                 </p>
             </div>
         </div>
