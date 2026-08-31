@@ -1,0 +1,258 @@
+/* ==========================================
+   main.css  -  shared app shell
+
+   header.php loads this file BEFORE every other page stylesheet.
+   This is the ONLY place --bg-card, --accent-green, --border-dark,
+   the sidebar, and the app-wide layout are defined. Page files
+   (dashboard.css, pickup.css, recycler.css, profile.css...) should
+   only ever ADD their own page-specific rules on top of this, never
+   redefine these shared ones - two copies of the same rule is how
+   pages quietly drift out of sync with each other.
+
+   login.php does NOT load this file - it has its own layout.
+   ========================================== */
+
+
+/* ==========================================
+   1. COLOR PALETTE & GLOBAL RESET
+   ========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  --bg-deep: #080d0a;
+  --bg-sidebar: #0f1712;
+  --bg-card: #142019;
+  --text-bright: #f0fdf4;
+  --text-muted: #84a391;
+  --accent-green: #52b788;
+  --accent-glow: #74c69d;
+  --border-dark: #1b2e23;
+}
+
+/* ---- Body layout, updated to make room for the site footer ----
+   footer.php prints a <footer class="site-footer"> AFTER the
+   .app-container closes, on every page. For that footer to sit
+   below the sidebar+content instead of being clipped or causing
+   a double scrollbar, body needs to be a flex column with
+   .app-container taking the remaining space (flex: 1) rather than
+   a fixed height: 100vh, which leaves no room for anything below
+   it. This used to only be applied inside dashboard.css, which is
+   why the footer only looked right on the dashboard page. */
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-bright);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-container {
+  display: flex;
+  flex: 1;
+  width: 100vw;
+  overflow: hidden;
+}
+
+@keyframes dynamicBorder {
+  0% {
+    border-color: rgba(82, 183, 136, 0.2);
+    box-shadow: 0 0 12px rgba(82, 183, 136, 0.1);
+  }
+  50% {
+    border-color: rgba(116, 198, 157, 0.6);
+    box-shadow: 0 0 20px rgba(116, 198, 157, 0.25);
+  }
+  100% {
+    border-color: rgba(82, 183, 136, 0.2);
+    box-shadow: 0 0 12px rgba(82, 183, 136, 0.1);
+  }
+}
+
+
+/* ==========================================
+   2. SIDEBAR STYLING (LEFT MENU)
+   ========================================== */
+.sidebar {
+  width: 270px;
+  flex-shrink: 0;
+  background-color: var(--bg-sidebar);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 16px;
+  overflow-y: auto;
+  border-right: 1.5px solid transparent;
+  border-image: linear-gradient(to bottom, #52b788, #1b2e23, #080d0a) 1;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px 24px 12px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  fill: var(--accent-green);
+  filter: drop-shadow(0 0 6px rgba(82, 183, 136, 0.5));
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: 0.5px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+  flex-grow: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-item:hover {
+  color: var(--text-bright);
+  background-color: rgba(82, 183, 136, 0.1);
+  border-color: rgba(82, 183, 136, 0.3);
+  transform: translateX(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item.active {
+  color: #080d0a;
+  background: linear-gradient(135deg, #52b788, #2d6a4f);
+  font-weight: 700;
+  border-color: var(--accent-glow);
+  box-shadow: 0 4px 16px rgba(82, 183, 136, 0.35);
+}
+
+.sidebar-footer {
+  border-top: 1px solid var(--border-dark);
+  padding-top: 16px;
+}
+
+.nav-item.logout:hover {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.brand-link:hover {
+  transform: translateY(-3px) scale(1.03);
+  text-shadow:
+    0 0 8px rgba(0, 255, 136, 0.6),
+    0 0 16px rgba(0, 255, 136, 0.3);
+}
+
+.brand-link:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+
+/* ==========================================
+   3. MAIN CONTENT AREA
+   ========================================== */
+.main-content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.glow-card {
+  border: 1px solid var(--border-dark);
+  animation: dynamicBorder 6s infinite ease-in-out;
+}
+
+
+/* ==========================================
+   4. FLASH MESSAGES
+   ========================================== */
+.form-message {
+  padding: 14px 20px;
+  border-radius: 12px;
+  background-color: rgba(82, 183, 136, 0.12);
+  border: 1px solid var(--accent-green);
+  color: var(--text-bright);
+  font-size: 0.9rem;
+}
+
+
+/* ==========================================
+   5. RECYCLER SIDEBAR EXTRAS
+   ========================================== */
+.who-line {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding: 0 16px 14px 16px;
+}
+
+.who-line strong {
+  color: var(--text-bright);
+  font-size: 0.92rem;
+}
+
+.who-city {
+  color: var(--accent-green);
+  font-size: 0.78rem;
+}
+
+.recycler-sidebar {
+  border-image: linear-gradient(to bottom, #74c69d, #1b2e23, #080d0a) 1;
+}
+
+
+/* ==========================================
+   6. SITE FOOTER  (moved in from dashboard.css)
+
+   footer.php includes <footer class="site-footer"> on every page,
+   not just the dashboard, so its styling belongs here rather than
+   in one page's stylesheet. Before this move, every page except
+   dashboard.php rendered this footer as plain unstyled text.
+   ========================================== */
+.site-footer {
+  background-color: var(--bg-sidebar);
+  border-top: 1px solid var(--border-dark);
+  text-align: center;
+  padding: 12px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.site-footer strong {
+  color: var(--accent-green);
+}

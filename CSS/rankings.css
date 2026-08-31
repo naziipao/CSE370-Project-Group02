@@ -1,0 +1,180 @@
+/* ============================================================
+   rankings.css   —   styling for the Institute Rankings page
+
+   Reuses the colour variables defined in dashboard.css
+   (--bg-card, --accent-green, etc.) so it matches the app theme.
+   ============================================================ */
+
+/* ---- "Live" badge in the page header ---- */
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(82, 183, 136, 0.12);
+  border: 1px solid var(--accent-green);
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+
+.live-badge.offline {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.12);
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--accent-glow);
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: livePulse 1.5s infinite ease-in-out;
+}
+
+.live-badge.offline .live-dot {
+  background-color: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1;   transform: scale(1);   }
+  50%      { opacity: 0.4; transform: scale(0.8); }
+}
+
+.loading-text {
+  color: var(--text-muted);
+  padding: 20px;
+  text-align: center;
+}
+
+/* ==========================================================
+   TOP-3 PODIUM
+   ========================================================== */
+.podium {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 32px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.podium-card {
+  background: linear-gradient(135deg, #142019, #0a140d);
+  border: 1px solid var(--border-dark);
+  border-radius: 14px;
+  padding: 20px 18px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.podium-card:hover {
+  transform: translateY(-6px);
+}
+
+/* 1st place sits taller and glows gold */
+.podium-card.place-1 {
+  border-color: #ffd700;
+  box-shadow: 0 0 22px rgba(255, 215, 0, 0.25);
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+.podium-card.place-2 { border-color: #c0c0c0; }
+.podium-card.place-3 { border-color: #cd7f32; }
+
+.podium-medal   { font-size: 2.6rem; }
+.podium-name    { font-size: 1rem; font-weight: 700; color: var(--text-bright); margin: 10px 0 6px; }
+.podium-points  { font-size: 0.95rem; font-weight: 700; color: var(--accent-glow); }
+
+/* Highlight if the podium institute is the user's own */
+.podium-card.is-me {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 3px;
+}
+
+/* ==========================================================
+   FULL RANKED LIST
+   ========================================================== */
+.ranking-section {
+  background-color: var(--bg-card);
+  padding: 24px 28px;
+  border-radius: 16px;
+}
+
+.section-header { margin-bottom: 18px; }
+
+.section-title {
+  font-size: 1.2rem;
+  color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rank-row {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.rank-row:hover {
+  background-color: rgba(82, 183, 136, 0.08);
+  transform: translateX(4px);
+}
+
+.rank-row.top-three {
+  background-color: rgba(82, 183, 136, 0.05);
+}
+
+/* The logged-in user's own institute */
+.rank-row.is-me {
+  border-color: var(--accent-green);
+  background-color: rgba(82, 183, 136, 0.14);
+  box-shadow: 0 0 12px rgba(82, 183, 136, 0.15);
+}
+
+.rank-num {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.rank-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.rank-points {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+  white-space: nowrap;
+}
+
+/* ---- narrow screens: let the podium wrap ---- */
+@media (max-width: 640px) {
+  .podium { flex-wrap: wrap; }
+  .podium-card { width: 100%; }
+  .rank-row { grid-template-columns: 46px 1fr auto; padding: 12px 14px; }
+}
