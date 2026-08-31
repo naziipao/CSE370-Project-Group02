@@ -131,7 +131,7 @@ include 'header.php';
 </section>
 
 
-<!-- ============ FEATURE 3: ACTIVITY FEED ============
+<!-- ============ FEATURE 3(Aurpita): ACTIVITY FEED ============
 
      A live "what's happening" timeline, not a notification system -
      nothing pops up, nothing is marked read. Deliberately NOT wired
