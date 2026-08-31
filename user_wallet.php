@@ -1,60 +1,31 @@
 <?php
-/* ============================================================
-   user_wallet.php
-   Displays the user's large eco-balance and purchased vouchers
-   ============================================================ */
-
 require_once "config/auth.php";
 require_once "config/DBconnect.php";
 
-$user_id = $_SESSION['user_id'] ?? null;
+// 1. Secure page and guarantee user ID exists
+require_login();
+$user_id = $_SESSION['user_id'];
 
-// 1. Fetch User's Eco Balance
-$ecoBalance = 0;
-if ($user_id) {
-    try {
-        $stmt = $pdo->prepare("SELECT current_points FROM wallet WHERE User_id = ?");
-        $stmt->execute([$user_id]);
-        $wallet = $stmt->fetch();
-        if ($wallet) {
-            $ecoBalance = $wallet['current_points'];
-        }
-    } catch (Exception $e) {
-        // Silently handle or log error if needed
-    }
-}
+// 2. Fetch User's Eco Balance (One-line query)
+$ecoBalance = $pdo->query("SELECT current_points FROM wallet WHERE User_id = $user_id")->fetchColumn() ?: 0;
 
-// 2. Fetch Purchased Vouchers History
-$purchasedVouchers = [];
-if ($user_id) {
-    try {
-        $query = "
-            SELECT 
-                r.reward_name, 
-                r.required_points, 
-                r.expiry_date, 
-                p.company_name,
-                uv.purchase_date
-            FROM voucher_transaction_history uv
-            JOIN reward r ON uv.reward_id = r.reward_id
-            LEFT JOIN partner_company p ON r.company_id = p.company_id
-            WHERE uv.user_id = ?
-            ORDER BY uv.purchase_date DESC
-        ";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute([$user_id]);
-        $purchasedVouchers = $stmt->fetchAll();
-    } catch (Exception $e) {
-        // Silently handle or log error if needed
-    }
-}
+// 3. Fetch Purchased Vouchers History
+$stmt = $pdo->prepare("
+    SELECT r.reward_name, r.required_points, r.expiry_date, p.company_name, uv.purchase_date
+    FROM voucher_transaction_history uv
+    JOIN reward r ON uv.reward_id = r.reward_id
+    LEFT JOIN partner_company p ON r.company_id = p.company_id
+    WHERE uv.user_id = ?
+    ORDER BY uv.purchase_date DESC
+");
+$stmt->execute([$user_id]);
+$purchasedVouchers = $stmt->fetchAll();
 
 $totalPurchased = count($purchasedVouchers);
 
 include 'header.php';
 ?>
 
-<!-- Link to the specific wallet CSS -->
 <link rel="stylesheet" href="css/user_wallet.css">
 
 <!-- LARGE ECO BALANCE WIDGET -->
@@ -85,12 +56,9 @@ include 'header.php';
             </div>
         <?php else: ?>
             <?php foreach ($purchasedVouchers as $v): ?>
-                <?php
-                    // Determine if the voucher is already expired based on today's date
-                    $isExpired = false;
-                    if (!empty($v['expiry_date']) && strtotime($v['expiry_date']) < strtotime('today')) {
-                        $isExpired = true;
-                    }
+                <?php 
+                    // Determine if the voucher is expired based on today's date
+                    $isExpired = !empty($v['expiry_date']) && strtotime($v['expiry_date']) < strtotime('today'); 
                 ?>
                 <div class="voucher-store-item <?= $isExpired ? 'expired-item' : '' ?>">
                     <div class="v-main-info">
@@ -102,13 +70,11 @@ include 'header.php';
                     </div>
                     
                     <div class="v-meta">
-                        <!-- COST USED -->
                         <div class="v-detail-block right-align">
                             <span class="v-label">Cost</span>
                             <span class="v-points-cost"><?= htmlspecialchars($v['required_points']) ?> pts</span>
                         </div>
 
-                        <!-- EXPIRY DATE -->
                         <div class="v-detail-block right-align">
                             <span class="v-label">Expires</span>
                             <span class="v-value <?= $isExpired ? 'text-danger' : '' ?>">
@@ -116,7 +82,6 @@ include 'header.php';
                             </span>
                         </div>
                         
-                        <!-- STATUS BADGE -->
                         <div class="v-status-badge <?= $isExpired ? 'badge-expired' : 'badge-active' ?>">
                             <?= $isExpired ? 'Expired' : 'Active' ?>
                         </div>
