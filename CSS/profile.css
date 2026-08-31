@@ -1,0 +1,202 @@
+/* Header specific to Profile Page */
+.dashboard-header {
+    margin-bottom: 25px;
+}
+.dashboard-header h2 {
+    margin: 0;
+    color: #f8f9fa; /* Light text for dark mode */
+    font-size: 1.8rem;
+}
+.dashboard-header p {
+    color: #adb5bd;
+    margin-top: 5px;
+}
+
+/* Main Container Limit */
+.profile-container {
+    max-width: 900px;
+}
+
+/* Cards - DARK THEME ADAPTATION */
+.profile-card {
+    background: rgba(255, 255, 255, 0.03); /* Subtle transparent dark box */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+    color: #e9ecef; /* Light text */
+    backdrop-filter: blur(5px);
+}
+
+.profile-name {
+    margin-top: 0;
+    color: #4ade80; /* Bright green that pops on dark backgrounds */
+    margin-bottom: 20px;
+}
+
+.card-heading {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #f8f9fa;
+}
+
+.card-subheading {
+    color: #adb5bd;
+    margin-bottom: 20px;
+}
+
+/* Alerts (Dark Mode Adjusted) */
+.alert {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+.alert-success {
+    background: rgba(40, 167, 69, 0.15);
+    color: #75b798;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+.alert-danger {
+    background: rgba(220, 53, 69, 0.15);
+    color: #ea868f;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+.alert-warning {
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffda6a;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+/* Grids */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+/* Wallet/Points Display */
+.user-info-text p {
+    margin: 8px 0;
+    color: #ced4da;
+}
+.wallet-box {
+    background: rgba(0, 0, 0, 0.3); /* Dark inset box */
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.wallet-title {
+    margin: 0;
+    color: #adb5bd;
+    font-size: 0.9rem;
+}
+.wallet-points {
+    margin: 5px 0;
+    color: #4ade80;
+    font-size: 2.2rem;
+}
+.wallet-tier {
+    margin: 0;
+    font-weight: bold;
+    color: #f8f9fa;
+}
+.wallet-tier span {
+    font-size: 1.1rem;
+}
+
+/* Forms - Dark Mode Inputs */
+.form-group {
+    margin-bottom: 18px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #ced4da;
+    font-size: 0.9rem;
+}
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.2); /* Dark input background */
+    color: #f8f9fa; /* White text */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: all 0.2s;
+    color-scheme: dark; /* Makes date picker icon look good in dark mode */
+}
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #4ade80;
+    outline: none;
+    background: rgba(0, 0, 0, 0.4);
+}
+::placeholder {
+    color: #6c757d;
+    opacity: 1; 
+}
+
+/* Form Radios */
+.radio-group label.radio-label {
+    display: inline-block;
+    margin-right: 20px;
+    font-weight: normal;
+    cursor: pointer;
+    color: #ced4da;
+}
+.divider {
+    margin: 25px 0;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Transfer Points Row */
+.transfer-form {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+.flex-2 { flex: 2; margin-bottom: 0; }
+.flex-1 { flex: 1; margin-bottom: 0; }
+.transfer-btn-container { margin-bottom: 0; }
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+.btn-primary {
+    background: #198754; /* Solid Green */
+    color: #fff;
+    margin-top: 10px;
+}
+.btn-primary:hover {
+    background: #157347;
+}
+.btn-secondary {
+    background: #0d6efd; /* Solid Blue */
+    color: #fff;
+    padding: 11px 20px; 
+}
+.btn-secondary:hover {
+    background: #0b5ed7;
+}
