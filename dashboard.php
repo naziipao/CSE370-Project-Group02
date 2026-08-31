@@ -6,18 +6,8 @@
 
 require_once "config/auth.php";
 require_once "config/DBconnect.php";
+require_once "feed_data.php";   // FEATURE 3: the activity feed
 
-// This was missing in the version pulled from the repo. Without it,
-// a visitor with no session at all (or a recycler, who has
-// $_SESSION['recycler_id'] but no $_SESSION['user_id']) hits the
-// query below with $user_id = null. The query then finds no
-// matching row, $user stays false, and the code DOES redirect to
-// logout.php a few lines down - but only after PHP has already
-// thrown an "Undefined array key" notice trying to read
-// $_SESSION['user_id']. If display_errors is on, that notice text
-// prints before header() runs, which then fails with
-// "headers already sent". require_login() stops all of this by
-// checking the session and redirecting BEFORE any of that happens.
 require_login();
 
 $user_id = $_SESSION['user_id'];
@@ -49,17 +39,6 @@ $lastName = $user['LastName'] ?: '';
 $fullName = trim("$firstName $lastName");
 
 // 2. Fetch University Rank & Name
-//
-// Note: this reads edu_institute_stats.CumulativeEarnedPoints
-// directly, with no need to also SUM deposit points separately,
-// because config/points.php's award_pickup_points() already keeps
-// that column incrementally up to date on every completed pickup:
-//
-//   UPDATE edu_institute_stats
-//   SET CumulativeEarnedPoints = CumulativeEarnedPoints + ?
-//   WHERE institute_EIIN = ?
-//
-// So this column is always the current running total already.
 $universityRank = 'N/A';
 $universityName = 'Not Affiliated'; // Default fallback
 
@@ -71,10 +50,6 @@ try {
     if ($student && !empty($student['institute_EIIN'])) {
         $eiin = $student['institute_EIIN'];
         
-        // Fetch Institute Name AND Calculate rank based on CumulativeEarnedPoints.
-        // The subquery counts how many institutes have STRICTLY MORE points
-        // than this one, +1 = this institute's rank. Two institutes tied on
-        // points get the same rank (standard competition ranking).
         $rank_stmt = $pdo->prepare("
             SELECT e.Institute_name, (
                 SELECT COUNT(*) + 1 
@@ -98,7 +73,12 @@ try {
     // Keeps default fallback if something goes wrong
 }
 
-// 3. Render Header
+// 3. FEATURE 3: pull the most recent platform-wide activity.
+// One function call - all the query/formatting logic lives in
+// feed_data.php, exactly like deposit.php delegates to deposit_data.php.
+$feed = get_recent_activity($pdo, 20);
+
+// 4. Render Header
 include 'header.php';
 ?>
 
@@ -150,7 +130,55 @@ include 'header.php';
   <a href="deposit.php" class="btn-primary" style="text-decoration: none; display: inline-block;">Deposit Waste Now</a>
 </section>
 
+
+<!-- ============ FEATURE 3: ACTIVITY FEED ============
+
+     A live "what's happening" timeline, not a notification system -
+     nothing pops up, nothing is marked read. Deliberately NOT wired
+     to the page's own auto-refresh: a full-page reload every few
+     seconds would reset the user's scroll position while they are
+     reading down the list, which defeats the point of a scrollable
+     feed. It simply shows the latest snapshot every time the
+     dashboard loads, same as before this feature existed. -->
+<section class="feed-section glow-card">
+
+  <div class="feed-head">
+    <h2 class="feed-title">🌍 Community Activity</h2>
+    <span class="feed-sub">See what everyone's recycling, live</span>
+  </div>
+
+  <?php if (count($feed) === 0): ?>
+    <p class="feed-empty">No activity yet — be the first to recycle something today!</p>
+  <?php else: ?>
+  <div class="feed-list">
+    <?php foreach ($feed as $item): ?>
+    <div class="feed-item" style="--accent: <?= $item['accent'] ?>;">
+      <span class="feed-icon"><?= $item['icon'] ?></span>
+      <div class="feed-body">
+        <p class="feed-line">
+          <strong><?= htmlspecialchars($item['name']) ?></strong>
+          <?php if ($item['institute']): ?>
+            <span class="feed-institute">· <?= htmlspecialchars($item['institute']) ?></span>
+          <?php endif; ?>
+          recycled <strong><?= number_format($item['weight'], 1) ?> kg</strong>
+          of <?= htmlspecialchars($item['waste_type']) ?>
+        </p>
+        <div class="feed-meta">
+          <span class="feed-badge-pill" style="border-color: <?= $item['accent'] ?>; color: <?= $item['accent'] ?>;">
+            <?= htmlspecialchars($item['badge']) ?>
+          </span>
+          <span class="feed-points">+<?= $item['points'] ?> pts</span>
+          <span class="feed-time"><?= $item['time_label'] ?></span>
+        </div>
+      </div>
+    </div>
+    <?php endforeach; ?>
+  </div>
+  <?php endif; ?>
+
+</section>
+
 <?php
-// 4. Render Footer
+// 5. Render Footer
 include 'footer.php';
 ?>
