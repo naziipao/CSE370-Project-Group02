@@ -438,7 +438,7 @@ include "header.php";
             <div class="form-group">
               <label for="pickupType">Waste Type</label>
               <select id="pickupType" name="pickup_type" required>
-                <option value="Home">Household Mixed</option>
+                <option value="Household (Mixed)">Household (Mixed)</option>
                 <option value="Plastic">Plastic</option>
                 <option value="Paper">Paper</option>
                 <option value="Glass">Glass</option>
