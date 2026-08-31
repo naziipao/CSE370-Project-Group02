@@ -103,10 +103,8 @@ function get_recent_activity($pdo, $limit = 20) {
 function feed_waste_label($waste_type) {
 
     $labels = [
-        'Household (Mixed)'   => 'Household Waste',   // current, correct value
-        'Home'                => 'Household Waste',   // old value, pre-fix rows
-        'Household Mixed'     => 'Household Waste',   // old value, pre-fix rows
-        'Household(Mixed)'    => 'Household Waste',   // old value, pre-fix rows
+        'Household (Mixed)'   => 'Household Waste',   // current
+        'Home'                => 'Household Waste',   // old value
         'Plastic'              => 'Plastic',
         'Paper'                => 'Paper',
         'Glass'                => 'Glass',
@@ -164,7 +162,7 @@ function feed_badge_accent($badge_name) {
 
     $colors = [
         'Bronze'  => '#cd7f32',
-        'Silver'  => '#c0c0c0',
+        'Silver'  => '#cac3c3',
         'Gold'    => '#f5b942',
         'Diamond' => '#74c69d',
     ];
