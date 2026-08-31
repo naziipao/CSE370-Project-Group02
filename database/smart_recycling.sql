@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2026 at 05:28 PM
+-- Generation Time: Aug 31, 2026 at 11:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -223,10 +223,10 @@ INSERT INTO `deposit` (`deposit_id`, `deposit_date`, `earned_points`, `waste_typ
 ('DEP018', '2026-07-18', 260, 'Metal', 5.50, 822539989, 'C020', NULL, NULL, 18),
 ('DEP019', '2026-07-19', 160, 'Paper', 5.00, 950660445, 'C004', NULL, NULL, 19),
 ('DEP020', '2026-07-20', 290, 'Plastic', 7.50, 46937022, 'C005', NULL, NULL, 20),
-('DEP021', '2026-08-24', 100, 'Home', 10.00, 37147258, NULL, 'PU027', 'REC008', 21),
-('DEP022', '2026-08-24', 100, 'Home', 10.00, 37147258, NULL, 'PU028', 'REC008', 22),
-('DEP023', '2026-08-25', 150, 'Home', 15.00, 37147258, NULL, 'PU029', 'REC008', 23),
-('DEP24', '2026-08-28', 100, 'Home', 10.00, 37147258, NULL, 'PU29', 'REC008', 24),
+('DEP021', '2026-08-24', 100, 'Household (Mixed)', 10.00, 37147258, NULL, 'PU027', 'REC008', 21),
+('DEP022', '2026-08-24', 100, 'Household (Mixed)', 10.00, 37147258, NULL, 'PU028', 'REC008', 22),
+('DEP023', '2026-08-25', 150, 'Household (Mixed)', 15.00, 37147258, NULL, 'PU029', 'REC008', 23),
+('DEP24', '2026-08-28', 100, 'Household (Mixed)', 10.00, 37147258, NULL, 'PU29', 'REC008', 24),
 ('DEP25', '2026-08-31', 70, 'Metal', 7.00, 46937022, 'C020', NULL, NULL, 25);
 
 -- --------------------------------------------------------
