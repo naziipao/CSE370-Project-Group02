@@ -1,0 +1,314 @@
+/* ==========================================
+   dashboard.css  -  styles for dashboard.php only
+
+   The reset, colour palette, sidebar, .app-container/.main-content
+   layout, and .site-footer styling that used to be duplicated here
+   now live in CSS/main.css, which header.php loads first on every
+   page. That duplication was the actual bug being fixed: dashboard.css
+   loading AFTER main.css meant its copies silently overrode main.css's
+   on THIS page only, so the site footer and the body/footer layout
+   only ever looked right on the dashboard - every other page used
+   main.css's older, un-updated versions.
+
+   Everything below is genuinely dashboard-specific and stays here.
+   ========================================== */
+
+
+/* Top Header */
+.top-header {
+  background-color: var(--bg-card);
+  padding: 24px 30px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-text h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.user-name {
+  color: var(--accent-green);
+}
+
+.welcome-text p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Points Badge */
+.wallet-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(82, 183, 136, 0.12);
+  border: 1px solid var(--accent-green);
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+
+.badge-icon {
+  font-size: 1.4rem;
+}
+
+.badge-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.badge-points {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+}
+
+/* Dashboard Cards Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: var(--bg-card);
+  padding: 24px;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card-icon {
+  font-size: 1.8rem;
+}
+
+/* Widget titles - kept at the larger size your teammate set */
+.card h3 {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin: 12px 0 6px 0;
+}
+
+.card-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+
+.card-value .unit {
+  font-size: 1rem;
+  color: var(--accent-green);
+}
+
+.card-subtext {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  display: block;
+}
+
+/* CTA Banner */
+.cta-banner {
+  background: linear-gradient(135deg, #142019, #0a140d);
+  padding: 28px 32px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cta-info h2 {
+  font-size: 1.3rem;
+  color: var(--accent-green);
+  margin-bottom: 6px;
+}
+
+.cta-info p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #52b788, #2d6a4f);
+  color: #080d0a;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(82, 183, 136, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--accent-glow);
+  transform: scale(1.03);
+}
+
+
+/* ==========================================
+   ACTIVITY FEED  (Feature 3)
+
+   A vertical timeline: a connecting line drawn once down the left
+   edge of the list (.feed-list::before), with each item's icon
+   sitting on top of that line. Every item can set its own --accent
+   colour inline (one per badge tier), which the dot and badge pill
+   both pick up - no per-tier CSS classes needed.
+   ========================================== */
+
+.feed-section {
+  background-color: var(--bg-card);
+  padding: 26px 30px;
+  border-radius: 16px;
+}
+
+.feed-head {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.feed-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+.feed-sub {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.feed-empty {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* The scrollable timeline itself */
+.feed-list {
+  position: relative;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-left: 8px;
+}
+
+/* the connecting vertical line running behind every icon */
+.feed-list::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--border-dark), transparent);
+}
+
+.feed-item {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding: 14px 10px 14px 4px;
+  animation: feedFadeIn 0.4s ease;
+}
+
+@keyframes feedFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.feed-icon {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  background-color: var(--bg-deep);
+  border: 2px solid var(--accent, var(--accent-green));
+  border-radius: 50%;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent, var(--accent-green)) 35%, transparent);
+}
+
+.feed-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.feed-line {
+  font-size: 0.9rem;
+  color: var(--text-bright);
+  line-height: 1.5;
+}
+
+.feed-line strong {
+  color: var(--text-bright);
+}
+
+.feed-institute {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.feed-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.feed-badge-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.feed-points {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+}
+
+.feed-time {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* Slim scrollbar so the timeline doesn't fight the card's rounded edges */
+.feed-list::-webkit-scrollbar {
+  width: 6px;
+}
+.feed-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.feed-list::-webkit-scrollbar-thumb {
+  background-color: var(--border-dark);
+  border-radius: 10px;
+}

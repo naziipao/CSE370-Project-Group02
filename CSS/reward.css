@@ -1,0 +1,403 @@
+/* ==========================================
+   css/reward.css
+   Specific styling for the Rewards Store UI
+   ========================================== */
+
+/* 1. Top Header & Layout Container */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 25px;
+  gap: 15px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.profile-header { 
+  justify-content: space-between; 
+  align-items: center;
+}
+
+/* --- TITLE STYLING --- */
+.header-title-area {
+  flex: 1;
+}
+
+.header-title-area h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  /* Creates a seamless gradient blending from white to your accent green */
+  background: linear-gradient(135deg, var(--text-bright, #ffffff), var(--accent-green, #52b788));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  /* Adds a very subtle green glow behind the text */
+  filter: drop-shadow(0 2px 8px rgba(82, 183, 136, 0.2));
+}
+
+/* Restores the natural color of the OS emoji */
+.header-title-area h1 .title-emoji {
+  -webkit-text-fill-color: initial;
+  background: none;
+}
+
+.header-title-area p {
+  margin: 0;
+  color: #a0aec0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* --- ECO BALANCE BADGE (Fitted & Sized Correctly) --- */
+.wallet-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(82, 183, 136, 0.6);
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: rgba(11, 26, 19, 0.6);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.badge-icon {
+  font-size: 1.3rem;
+  color: #52b788;
+}
+
+.badge-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.badge-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #b7e4c7;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+
+.badge-points {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #52b788;
+}
+
+/* --- LIST HEADERS & SEARCH BAR STYLING --- */
+.section-header { 
+  margin-bottom: 24px; 
+}
+
+.list-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.section-title { 
+  font-size: 1.3rem; 
+  color: var(--accent-green); 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  margin-bottom: 6px; 
+}
+
+.section-subtitle { 
+  color: var(--text-muted); 
+  font-size: 0.9rem; 
+}
+
+.search-wrapper {
+  position: relative;
+  min-width: 280px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.list-search-input {
+  width: 100%;
+  padding: 10px 15px 10px 38px;
+  border-radius: 8px;
+  border: 1px solid var(--border-dark);
+  background-color: rgba(8, 13, 10, 0.6);
+  color: var(--text-bright);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.list-search-input:focus {
+  outline: none;
+  border-color: var(--accent-green);
+  box-shadow: 0 0 8px rgba(82, 183, 136, 0.3);
+  background-color: rgba(11, 26, 19, 0.8);
+}
+
+.list-search-input::placeholder {
+  color: #718096;
+}
+
+
+/* --- VOUCHERS SECTION --- */
+.vouchers-section {
+  background-color: var(--bg-card); 
+  padding: 30px; 
+  border-radius: 16px;
+  margin-top: 28px;
+}
+
+/* --- SCROLLABLE VOUCHER LIST --- */
+.voucher-list {
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+  
+  /* Restricts the height and enables vertical scrolling */
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+/* Custom Scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+.voucher-list::-webkit-scrollbar,
+.partner-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.voucher-list::-webkit-scrollbar-track,
+.partner-list::-webkit-scrollbar-track {
+  background: rgba(8, 13, 10, 0.4);
+  border-radius: 8px;
+}
+
+.voucher-list::-webkit-scrollbar-thumb,
+.partner-list::-webkit-scrollbar-thumb {
+  background-color: var(--accent-green, #52b788);
+  border-radius: 8px;
+}
+
+.voucher-list::-webkit-scrollbar-thumb:hover,
+.partner-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-glow, #74c69d);
+}
+
+.voucher-store-item {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  background-color: rgba(8, 13, 10, 0.4); 
+  padding: 20px; 
+  border-radius: 12px;
+  border: 1px solid var(--border-dark); 
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.voucher-store-item:hover {
+  transform: translateX(4px); 
+  border-color: var(--accent-green); 
+  background-color: rgba(82, 183, 136, 0.05);
+}
+
+.v-main-info { 
+  display: flex; 
+  align-items: center; 
+  gap: 16px; 
+}
+
+.v-icon {
+  font-size: 1.8rem; 
+  background-color: rgba(82, 183, 136, 0.1);
+  padding: 14px; 
+  border-radius: 12px; 
+  color: var(--accent-green);
+}
+
+.v-title { 
+  font-size: 1.1rem; 
+  color: var(--text-bright); 
+  margin-bottom: 4px; 
+}
+
+.v-company { 
+  font-size: 0.85rem; 
+  color: var(--text-muted); 
+  display: block; 
+}
+
+.v-meta { 
+  display: flex; 
+  align-items: center; 
+  gap: 20px;
+}
+
+.v-detail-block { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 4px; 
+}
+
+.right-align { 
+  align-items: flex-end; 
+}
+
+.v-label { 
+  font-size: 0.8rem; 
+  color: var(--text-muted); 
+  text-transform: uppercase; 
+}
+
+.v-value { 
+  font-size: 0.95rem; 
+  font-weight: 600; 
+  color: var(--text-bright); 
+}
+
+.v-points-cost { 
+  font-size: 1.1rem; 
+  font-weight: 700; 
+  color: var(--accent-glow); 
+}
+
+.btn-purchase {
+  background: linear-gradient(135deg, #52b788, #2d6a4f); 
+  color: #080d0a;
+  border: none; 
+  padding: 10px 24px; 
+  border-radius: 8px; 
+  font-weight: 700;
+  font-size: 0.9rem; 
+  cursor: pointer; 
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(82, 183, 136, 0.2); 
+  margin-left: 10px;
+}
+
+.btn-purchase:hover { 
+  background: var(--accent-glow); 
+  transform: scale(1.05); 
+}
+
+/* --- GREEN PARTNERS SECTION --- */
+.partners-section {
+  background-color: var(--bg-card); 
+  padding: 30px; 
+  border-radius: 16px;
+  margin-top: 28px;
+}
+
+.partner-list {
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px; 
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+.partner-store-item {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  background-color: rgba(8, 13, 10, 0.4); 
+  padding: 20px; 
+  border-radius: 12px;
+  border: 1px solid var(--border-dark); 
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.partner-store-item:hover {
+  transform: translateX(4px); 
+  border-color: var(--accent-green); 
+  background-color: rgba(82, 183, 136, 0.05);
+}
+
+.p-main-info { 
+  display: flex; 
+  align-items: center; 
+  gap: 16px; 
+  flex: 1;
+}
+
+.p-icon {
+  font-size: 1.6rem; 
+  background-color: rgba(82, 183, 136, 0.1);
+  padding: 14px; 
+  border-radius: 12px; 
+  color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-company-name { 
+  font-size: 1.1rem; 
+  color: var(--text-bright); 
+  margin-bottom: 4px; 
+  font-weight: 700;
+}
+
+.p-branch-name { 
+  font-size: 0.85rem; 
+  color: var(--accent-green); 
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.p-meta { 
+  display: flex; 
+  align-items: center; 
+  gap: 30px;
+}
+
+.p-detail-block { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 4px; 
+}
+
+.p-label { 
+  font-size: 0.75rem; 
+  color: var(--text-muted); 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px;
+}
+
+.p-value { 
+  font-size: 0.95rem; 
+  font-weight: 500; 
+  color: var(--text-bright); 
+}
+
+.p-phone { 
+  font-size: 0.95rem; 
+  font-weight: 600; 
+  color: var(--accent-glow); 
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
